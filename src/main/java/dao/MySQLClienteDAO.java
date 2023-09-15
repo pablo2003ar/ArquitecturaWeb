@@ -73,7 +73,6 @@ public class MySQLClienteDAO implements ClienteDAO {
 
 
                 Cliente cliente = new Cliente(idCliente, nombre, email);
-                // Aquí puedes agregar el totalFacturado a tu objeto Cliente si lo necesitas
                 clientes.add(cliente);
             }
 

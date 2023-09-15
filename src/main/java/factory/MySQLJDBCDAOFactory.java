@@ -15,19 +15,14 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String DBURL = "jdbc:mysql://localhost/integrador1";
-    // method to create DB connection
-
 
 
     private static MySQLJDBCDAOFactory instance;
 
     private  MySQLJDBCDAOFactory() {
 
-
     }
 
-
-        //Método para obtener la instancia única de la fábrica.
         public static MySQLJDBCDAOFactory getInstance() {
             if (instance == null) {
                 instance = new MySQLJDBCDAOFactory();
@@ -49,8 +44,8 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
         return connection;
     }
 
+    @Override
     public ClienteDAO getClienteDAO() {
-        // MySQLCustomerDAO implements CustomerDAO
         return new MySQLClienteDAO();
     }
 

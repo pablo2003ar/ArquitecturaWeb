@@ -36,8 +36,8 @@ public class MySQLFacturaDAO implements Dao<Factura> {
         String tabla = "CREATE TABLE IF NOT EXISTS factura(" +
                 "idFactura INT," +
                 "idCliente INT," +
-                "PRIMARY KEY(idFactura)," +  // Corrected PRIMARY KEY column name
-                "FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)" + // Removed "db_tp1." before "cliente"
+                "PRIMARY KEY(idFactura)," +
+                "FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)" +
                 ")";
         try {
             Connection connection = MySQLJDBCDAOFactory.createConnection();

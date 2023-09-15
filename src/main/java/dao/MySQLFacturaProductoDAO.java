@@ -42,9 +42,9 @@ public class MySQLFacturaProductoDAO implements Dao<FacturaProducto> {
                 "idFactura INT," +
                 "idProducto INT," +
                 "cantidad INT," +
-                "PRIMARY KEY(idFactura, idProducto)," +  // Combined primary key with multiple columns
-                "FOREIGN KEY (idFactura) REFERENCES factura(idFactura)," + // Corrected FOREIGN KEY reference
-                "FOREIGN KEY (idProducto) REFERENCES producto(idProducto)" + // Corrected FOREIGN KEY reference
+                "PRIMARY KEY(idFactura, idProducto)," +
+                "FOREIGN KEY (idFactura) REFERENCES factura(idFactura)," +
+                "FOREIGN KEY (idProducto) REFERENCES producto(idProducto)" +
                 ")";
         try {
             Connection connection = MySQLJDBCDAOFactory.createConnection();
