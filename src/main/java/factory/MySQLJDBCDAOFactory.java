@@ -1,6 +1,7 @@
 package factory;
 
 import dao.*;
+import java.sql.*;
 import models.Cliente;
 import models.Factura;
 import models.FacturaProducto;
@@ -14,7 +15,8 @@ import java.sql.SQLException;
 public class MySQLJDBCDAOFactory extends DAOFactory {
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    public static final String DBURL = "jdbc:mysql://localhost/integrador1";
+    public static final String DBURL = "jdbc:mysql://localhost:3306/integrador1";
+
 
 
     private static MySQLJDBCDAOFactory instance;
