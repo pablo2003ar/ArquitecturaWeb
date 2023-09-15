@@ -38,6 +38,8 @@ public class Main {
         facturaDao.crear();
         facturaProductoDao.crear();
 
+        //Se agregan los elementos definidos en los archivos CVS a la base de datos
+        //PRODUCTOS.CVS
         CSVParser parser = null;
         try {
             parser = CSVFormat.DEFAULT.withHeader().parse(new
@@ -50,8 +52,7 @@ public class Main {
             productoDao.insertar(producto);
         }
 
-
-        // Para clientes.csv
+        //CLIENVES.CVS
         CSVParser parserCliente = null;
         try {
             parserCliente = CSVFormat.DEFAULT.withHeader().parse(new FileReader("ArquitecturaWeb/clientes.csv"));
@@ -63,6 +64,7 @@ public class Main {
             clienteDao.insertar(cliente);
         }
 
+        //FACTURAS.CVS
         CSVParser parserFactura = null;
         try {
             parserFactura = CSVFormat.DEFAULT.withHeader().parse(new FileReader("ArquitecturaWeb/facturas.csv"));
@@ -74,6 +76,7 @@ public class Main {
             facturaDao.insertar(factura);
         }
 
+        //FACTURAS_PRODUCTOS.CVS
         CSVParser parserFacturaProducto = null;
         try {
             parserFacturaProducto = CSVFormat.DEFAULT.withHeader().parse(new FileReader("ArquitecturaWeb/facturas-productos.csv"));
@@ -94,9 +97,10 @@ public class Main {
         //Respuesta a consigna 3 - El producto que mas recaudo
         Producto producto = productoDao.obtenerProductoMayorRecaudacion();
         System.out.println(producto);
-        System.out.println( "El producto que mas recaudo es el: " producto.getIdProducto());
+        System.out.println( "El producto que mas recaudo es el: " + producto.getIdProducto());
     }
 
+    //Metodo que borra las tablas de la base de datos, si existen. Se realiza para evitar errores.
     private static void clearDatabase(String table_name) {
         String delete = "DROP TABLE IF EXISTS integrador1." + table_name;
         PreparedStatement preparedStatement = null;

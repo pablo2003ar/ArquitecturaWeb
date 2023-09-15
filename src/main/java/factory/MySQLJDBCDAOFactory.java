@@ -15,6 +15,8 @@ import java.sql.SQLException;
 public class MySQLJDBCDAOFactory extends DAOFactory {
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+
+    //Verificar la ruta de la conexion JDBC ya que la ruta puede variar dependiendo el puerto y nombre de la base de datos.
     public static final String DBURL = "jdbc:mysql://localhost:3306/integrador1";
 
 
@@ -36,6 +38,7 @@ public class MySQLJDBCDAOFactory extends DAOFactory {
         Connection connection = null;
         try {
             Class.forName(DRIVER).getDeclaredConstructor().newInstance();
+            //Verificar usuario y contraseña para la conxion de la base de datos MySQL ya que puede variar dependiendo la configuracion de cada tester.
             connection = DriverManager.getConnection(DBURL, "root", "");
             connection.setAutoCommit(false);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
