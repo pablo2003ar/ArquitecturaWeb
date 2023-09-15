@@ -1,5 +1,6 @@
 package org.example;
 
+//IMPORTS
 import java.sql.*;
 import dao.ClienteDAO;
 import dao.Dao;
@@ -13,7 +14,6 @@ import models.Producto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,12 +27,12 @@ public class Main {
         clearDatabase("cliente");
 
         DAOFactory mySQLJDBCDAOFactory = DAOFactory.getDAOFactory(1);
-
         ClienteDAO clienteDao =  mySQLJDBCDAOFactory.getClienteDAO();
         ProductoDAO productoDao = mySQLJDBCDAOFactory.getProductoDAO();
         Dao<Factura> facturaDao = mySQLJDBCDAOFactory.getFacturaDAO();
         Dao<FacturaProducto> facturaProductoDao = mySQLJDBCDAOFactory.getFacturaProductoDAO();
 
+        //Creacion de Tablas en la base de datos.
         clienteDao.crear();
         productoDao.crear();
         facturaDao.crear();
@@ -96,6 +96,7 @@ public class Main {
 
         //Respuesta a consigna 3 - El producto que mas recaudo
         Producto producto = productoDao.obtenerProductoMayorRecaudacion();
+        System.out.println();
         System.out.println(producto);
         System.out.println( "El producto que mas recaudo es el: " + producto.getIdProducto());
     }
