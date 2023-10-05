@@ -1,12 +1,17 @@
 package org.example;
 
+import Entities.Carrera;
 import Entities.Estudiante;
+import Entities.Inscripciones;
+import dto.ReporteCarreraDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -94,14 +99,13 @@ public class Main {
 
          */
 
+        /*
         String jpql = "SELECT i.nroLibreta FROM Inscripciones i JOIN i.nroLibreta e JOIN i.id_carrera c WHERE c.id = ?1 AND e.ciudad = ?2";
         Query query = em.createQuery(jpql).setParameter(1,4).setParameter(2,"Olavarria");
         List<Estudiante> resultados = query.getResultList();
         System.out.println(resultados);
 
-
-
-
+         */
 
 
         em.getTransaction().commit();
