@@ -26,7 +26,7 @@ public class Main {
         CarreraRepositoryImpl carreraRepository = factoryEntityManager.getCarrera();
         InscripcionesRepositoryImpl inscripcionesRepository = factoryEntityManager.getInscripciones();
 
-        /*
+
         //Alta Carreras
         Carrera c1 = new Carrera("Tecnicatura Universitaria en Desarrollo de Aplicaciones Informáticas");
         Carrera c2 = new Carrera("Ingeniería de Sistemas");
@@ -70,11 +70,8 @@ public class Main {
         inscripcionesRepository.saveInscripciones(inscripciones6);
         inscripcionesRepository.saveInscripciones(inscripciones7);
 
-         */
 
 
-
-        /*
         //C) Recuperar todos los estudiantes segun un criterio de ordenamiento simple
         System.out.println(estudianteRepository.getEstudiantesPorApellido());
 
@@ -90,7 +87,7 @@ public class Main {
         //G) Recuperar los estudiantes de una carrera determinada filtrado por ciudad
         System.out.println(estudianteRepository.getEstudiantesByCarrera(2,"Olavarria"));
 
-         */
+
 
         System.out.println(inscripcionesRepository.getReporte());
     }
