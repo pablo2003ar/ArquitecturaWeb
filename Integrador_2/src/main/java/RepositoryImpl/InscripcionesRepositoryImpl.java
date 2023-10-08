@@ -18,9 +18,11 @@ import java.util.stream.Collectors;
 
 public class InscripcionesRepositoryImpl implements InscripcionesRepository {
     private EntityManager em;
+
     public InscripcionesRepositoryImpl(EntityManager em) {
         this.em = em;
     }
+
     @Override
     public Inscripciones getInscripcionesById(int id) {
         EntityManager entityManager = MySQLEntityManagerFactory.getEntityManager();
@@ -49,7 +51,7 @@ public class InscripcionesRepositoryImpl implements InscripcionesRepository {
         if (this.getInscripcionesById(i.getId()) == null) {
             entityManager.persist(i);
         } else {
-           entityManager.merge(i);
+            entityManager.merge(i);
         }
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -87,33 +89,31 @@ public class InscripcionesRepositoryImpl implements InscripcionesRepository {
      */
     public List<ReporteCarreraDTO> getReporte() {
         EntityManager entityManager = MySQLEntityManagerFactory.getEntityManager();
-            entityManager.getTransaction().begin();
+        entityManager.getTransaction().begin();
 
-            String jpql = "SELECT nombre, fechaInscripcion, COUNT(fechaInscripcion) as Inscripciones, 0 as graduados " +
-                    "FROM carrera c INNER JOIN inscripciones i ON c.id = i.id_carrera_id " +
-                    "GROUP BY c.id, fechaInscripcion " +
-                    "HAVING fechaInscripcion != 0 " +
-                    "UNION " +
-                    "SELECT nombre, graduado, 0 as Inscripciones, COUNT(graduado) as graduados " +
-                    "FROM carrera c INNER JOIN inscripciones i ON c.id = i.id_carrera_id " +
-                    "GROUP BY c.id, graduado\r\n " +
-                    "HAVING graduado != 0 " +
-                    "ORDER BY nombre, fechaInscripcion ASC";
+        String jpql = "SELECT nombre, fechaInscripcion, COUNT(fechaInscripcion) as Inscripciones, 0 as graduados " +
+                "FROM carrera c INNER JOIN inscripciones i ON c.id = i.id_carrera_id " +
+                "GROUP BY c.id, fechaInscripcion " +
+                "HAVING fechaInscripcion != 0 " +
+                "UNION " +
+                "SELECT nombre, graduado, 0 as Inscripciones, COUNT(graduado) as graduados " +
+                "FROM carrera c INNER JOIN inscripciones i ON c.id = i.id_carrera_id " +
+                "GROUP BY c.id, graduado\r\n " +
+                "HAVING graduado != 0 " +
+                "ORDER BY nombre, fechaInscripcion ASC";
 
 
-            Query query = entityManager.createNativeQuery(jpql);
-            List<Object[]> resultados = query.getResultList();
+        Query query = entityManager.createNativeQuery(jpql);
+        List<Object[]> resultados = query.getResultList();
 
-            entityManager.getTransaction().commit();
-            entityManager.close();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
         List<ReporteCarreraDTO> reporteFinal = resultados.stream()
-                .map(objects -> new ReporteCarreraDTO((String) objects[0]))
+                .map(objects -> new ReporteCarreraDTO((String) objects[0], (int) objects[1], (BigInteger) objects[2], (BigInteger) objects[3]))
                 .collect(Collectors.toList());
 
-            return reporteFinal;
-
-
-
+        return reporteFinal;
 
 
     }

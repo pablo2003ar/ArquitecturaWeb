@@ -11,38 +11,40 @@ import java.util.List;
 public class ReporteCarreraDTO {
     private String carreras;
 
-    private Long cantInscriptos;
-    private Long cantGraduados;
+    private int anio;
+    private BigInteger cantInscriptos;
+    private BigInteger cantGraduados;
 
-    private Long anio;
-
-    public ReporteCarreraDTO(String carreras) {
+    public ReporteCarreraDTO(String carreras, int anio, BigInteger cantInscriptos, BigInteger cantGraduados) {
         this.carreras = carreras;
+        this.anio = anio;
+        this.cantInscriptos = cantInscriptos;
+        this.cantGraduados = cantGraduados;
     }
 
     public String getCarreras() {
         return carreras;
     }
 
-    public Long getCantInscriptos() {
+    public int getAnio() {
+        return anio;
+    }
+
+    public BigInteger getCantInscriptos() {
         return cantInscriptos;
     }
 
-    public Long getCantGraduados() {
+    public BigInteger getCantGraduados() {
         return cantGraduados;
-    }
-
-    public Long getAnio() {
-        return anio;
     }
 
     @Override
     public String toString() {
         return "ReporteCarreraDTO{" +
-                "carreras=" + carreras +
+                "carreras='" + carreras + '\'' +
+                ", anio=" + anio +
                 ", cantInscriptos=" + cantInscriptos +
                 ", cantGraduados=" + cantGraduados +
-                ", anio=" + anio +
                 '}';
     }
 }
