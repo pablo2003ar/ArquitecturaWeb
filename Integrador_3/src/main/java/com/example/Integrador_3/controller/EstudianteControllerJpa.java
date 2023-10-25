@@ -20,8 +20,12 @@ public class EstudianteControllerJpa {
         this.repository = repository;
     }
 
+    @PostMapping("/")
+    public Estudiante altaEstudiante(@RequestBody Estudiante e){return repository.save(e);}
+
     @GetMapping("/")
     public Iterable<Estudiante> getEstudiantes() {
         return repository.findAll();
     }
+
 }
