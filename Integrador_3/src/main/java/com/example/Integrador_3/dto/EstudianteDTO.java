@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 
 public class EstudianteDTO {
-    private int nroLibreta;
+    private Long nroLibreta;
     private int dni;
     private String nombre;
     private String apellido;
@@ -13,13 +13,15 @@ public class EstudianteDTO {
     private String ciudad;
     private String genero;
 
-    public EstudianteDTO(int nroLibreta, int dni, String nombre, String apellido, int edad, String ciudad, String genero) {
+    public EstudianteDTO(Long nroLibreta, int dni, String apellido) {
         this.nroLibreta = nroLibreta;
         this.dni = dni;
-        this.nombre = nombre;
         this.apellido = apellido;
+        /*
         this.edad = edad;
         this.ciudad = ciudad;
         this.genero = genero;
+
+         */
     }
 }
