@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface InscripcionesRepository extends JpaRepository<Inscripciones, Integer>{
     @EntityGraph(attributePaths = { "nroLibreta", "id_carrera" })
-    List<Inscripciones> findAll();  // O cualquier otro método que necesites
+    List<Inscripciones> findAll();
 }
