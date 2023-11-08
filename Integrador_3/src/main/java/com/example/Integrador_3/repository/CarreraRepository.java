@@ -8,10 +8,10 @@ import java.util.List;
 public interface CarreraRepository extends JpaRepository<Carrera, Integer> {
     public Carrera findBynombre(String name);
 
-    @Query("SELECT c, COUNT(i) AS inscriptos " +
+    @Query("SELECT c " +
             "FROM Carrera c " +
             "INNER JOIN Inscripciones i ON c.id = i.id_carrera.id " +
             "GROUP BY c.id " +
-            "ORDER BY inscriptos DESC")
-    List<Object[]> findCarrerasWithInscriptosOrderedByCount();
+            "ORDER BY COUNT(i.nroLibreta) DESC")
+    List<Carrera> findCarrerasWithInscriptosOrderedByCount();
 }

@@ -2,11 +2,12 @@ package com.example.Integrador_3.controller;
 
 import com.example.Integrador_3.dto.EstudianteDTO;
 import com.example.Integrador_3.model.Estudiante;
-import com.example.Integrador_3.repository.EstudianteRepository;
 
 import com.example.Integrador_3.service.EstudianteService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,33 +40,60 @@ public class EstudianteControllerJpa {
     }
 
     @GetMapping("/{numLib}")
-    public EstudianteDTO getEstudianteByLibreta(@PathVariable Long numLib) throws Exception {
+    public ResponseEntity<?> getEstudianteByLibreta(@PathVariable Long numLib) {
         Estudiante estudiante = estudianteServ.findByLibreta(numLib);
         try{
-            return new EstudianteDTO(estudiante.getNroLibreta(), estudiante.getDni(), estudiante.getApellido());
+            return ResponseEntity.status(HttpStatus.OK).body(new EstudianteDTO(estudiante.getNroLibreta(), estudiante.getDni(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getCiudad(), estudiante.getGenero()));
         }catch (Exception e){
-            throw new Exception(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"No existe numero de libreta.\"}");
         }
     }
 
     @GetMapping("/order")
-    public List<EstudianteDTO> getEstudiantesByOrder() {
+    public ResponseEntity<?> getEstudiantesByOrder() {
         try {
-            return estudianteServ.findAllOrder();
+            List<EstudianteDTO> estudiantes = estudianteServ.findAllOrder();
+            if (estudiantes.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen estudiantes.");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
         } catch (Exception e) {
-            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor: " + e.getMessage());
         }
-        return null;
     }
 
+
+
     @GetMapping("/genero/{genero}")
-    public List<EstudianteDTO> getEstudianteByGenero(@PathVariable String genero) throws Exception {
-        try{
-            return estudianteServ.findByGenero(genero);
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
+    public ResponseEntity<?> getEstudianteByGenero(@PathVariable String genero) {
+        try {
+            List<EstudianteDTO> estudiantes = estudianteServ.findByGenero(genero);
+
+            if (estudiantes.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"No existen estudiantes con ese genero.\"}");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"No existe.\"}");
         }
     }
+
+    @GetMapping("/{id_carrera}/{ciudad}")
+    public ResponseEntity<?> getEstudianteByCarreraCiudad(@PathVariable int id_carrera, @PathVariable String ciudad) {
+        try {
+            List<EstudianteDTO> estudiantes = estudianteServ.getEstudianteByCarrera(id_carrera, ciudad);
+
+            if (estudiantes.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"No existe la carrera o la ciudad.\"}");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"No existe.\"}");
+        }
+    }
+
 
 
 

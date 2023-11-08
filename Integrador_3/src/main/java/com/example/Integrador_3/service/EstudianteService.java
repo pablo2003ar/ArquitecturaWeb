@@ -49,7 +49,7 @@ public class EstudianteService implements BaseService<Estudiante> {
     public List<EstudianteDTO> findAllOrder() throws Exception {
         var resultado = estudianteRepository.findByOrderByApellidoAsc();
         try{
-            return resultado.stream().map(estudiante -> new EstudianteDTO(estudiante.getNroLibreta(), estudiante.getDni(), estudiante.getApellido()))
+            return resultado.stream().map(estudiante -> new EstudianteDTO(estudiante.getNroLibreta(), estudiante.getDni(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getCiudad(), estudiante.getGenero()))
                     .collect(Collectors.toList());
 
         }catch (Exception e){
@@ -65,7 +65,19 @@ public class EstudianteService implements BaseService<Estudiante> {
     public List<EstudianteDTO> findByGenero(String genero) throws Exception {
         var resultado = estudianteRepository.findBygenero(genero);
         try{
-            return resultado.stream().map(estudiante -> new EstudianteDTO(estudiante.getNroLibreta(), estudiante.getDni(), estudiante.getApellido()))
+            return resultado.stream().map(estudiante -> new EstudianteDTO(estudiante.getNroLibreta(), estudiante.getDni(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getCiudad(), estudiante.getGenero()))
+                    .collect(Collectors.toList());
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Transactional
+    public List<EstudianteDTO> getEstudianteByCarrera(int carrera, String ciudad) throws Exception {
+        var resultado = estudianteRepository.getEstudiantesByCarrera(carrera, ciudad);
+        try{
+            return resultado.stream().map(estudiante -> new EstudianteDTO(estudiante.getNroLibreta(), estudiante.getDni(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getCiudad(), estudiante.getGenero()))
                     .collect(Collectors.toList());
 
         }catch (Exception e){

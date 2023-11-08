@@ -1,5 +1,6 @@
 package com.example.Integrador_3.controller;
 
+import com.example.Integrador_3.dto.ReporteCarreraDTO;
 import com.example.Integrador_3.model.Inscripciones;
 import com.example.Integrador_3.repository.InscripcionesRepository;
 
@@ -27,6 +28,11 @@ public class InscripcionesControllerJpa {
     @GetMapping("/")
     public Iterable<Inscripciones> getInscripciones() throws Exception {
         return inscripcionesServ.findAll();
+    }
+
+    @GetMapping("/reporte")
+    public Iterable<ReporteCarreraDTO> getReporte() throws Exception {
+        return inscripcionesServ.getReportes();
     }
 
 }

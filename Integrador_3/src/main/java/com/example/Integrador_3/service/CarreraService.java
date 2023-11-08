@@ -1,5 +1,6 @@
 package com.example.Integrador_3.service;
 
+import com.example.Integrador_3.dto.CarreraDTO;
 import com.example.Integrador_3.model.Carrera;
 import com.example.Integrador_3.repository.CarreraRepository;
 import jakarta.transaction.Transactional;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service("CarreraService")
 public class CarreraService implements BaseService<Carrera>{
     @Autowired
@@ -42,15 +45,14 @@ public class CarreraService implements BaseService<Carrera>{
         return false;
     }
 
-    public List<Carrera> findCarrerasWithInscriptosOrderedByCount() {
-        List<Object[]> result = carreraRepo.findCarrerasWithInscriptosOrderedByCount();
-        List<Carrera> carreras = new ArrayList<>();
+    public List<CarreraDTO> findCarrerasWithInscriptosOrderedByCount() throws Exception{
+        List<Carrera> result = carreraRepo.findCarrerasWithInscriptosOrderedByCount();
+        try{
+            return result.stream().map(carrera -> new CarreraDTO(carrera.getId(), carrera.getNombre()))
+                    .collect(Collectors.toList());
 
-        for (Object[] objects : result) {
-            Carrera carrera = (Carrera) objects[0];
-            carreras.add(carrera);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
         }
-
-        return carreras;
     }
 }
