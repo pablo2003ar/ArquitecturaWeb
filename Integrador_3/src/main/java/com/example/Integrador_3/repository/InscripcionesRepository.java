@@ -18,7 +18,7 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones, In
             "SELECT nombre, graduado, 0 as Inscripciones, COUNT(graduado) as graduados " +
             "FROM carrera c INNER JOIN inscripciones i ON c.id = i.id_carrera " +
             "GROUP BY c.id, graduado\r\n " +
-            "HAVING graduado != 0 " +
+            "HAVING graduado IS NOT NULL " +
             "ORDER BY nombre, fecha ASC",
             nativeQuery = true)
     List<Object[]> getReporte();
